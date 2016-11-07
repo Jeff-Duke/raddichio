@@ -15,6 +15,11 @@ board.on('ready', () => {
   const monitor = new five.Multi({
     controller: 'BME280'
   });
+  const valve = new five.Servo({
+    pin: 'b7',
+    range: [0, 90],
+    startAt: 0
+  });
 
   dry.on();
 
@@ -23,10 +28,21 @@ board.on('ready', () => {
   let temperature;
   let humidity;
   let barometer;
+  let waterStatus;
 
   //phant info
   const privateKey = '2mvZePN5kMu7y0lArPRZ';
   const publicKey = 'ZG4drKRxMocl6a5L7WrY';
+
+  const waterOff = () => {
+    valve.min();
+    waterStatus = 'Off';
+  };
+
+  const waterOn = () => {
+    valve.max();
+    waterStatus = 'Running';
+  };
 
   moistureSensor.on('change', () => {
     waterLevel = moistureSensor.value;
@@ -34,11 +50,13 @@ board.on('ready', () => {
     if (moistureSensor.value < 300) {
       dry.on();
       wet.off();
+      waterOn();
     }
 
     if (moistureSensor.value > 300) {
       dry.off();
       wet.on();
+      waterOff();
     }
   });
 
@@ -50,7 +68,7 @@ board.on('ready', () => {
 
   const logLevels = () => {
     if(waterLevel || temperature || humidity || barometer) {
-      request(`http://data.sparkfun.com/input/${publicKey}?private_key=${privateKey}&humidity=${humidity}&moisturelevel=${waterLevel}&pressure=${barometer}&temp=${temperature}`, (error, response, body) => {
+      request(`http://data.sparkfun.com/input/${publicKey}?private_key=${privateKey}&humidity=${humidity}&moisturelevel=${waterLevel}&pressure=${barometer}&temp=${temperature}&waterstatus=${waterStatus}`, (error, response, body) => {
         if (!error && response.statusCode == 200) {
           console.log(body);
         }
@@ -59,7 +77,7 @@ board.on('ready', () => {
         }
       });
     }
-    setTimeout(logLevels, 10000);
+    setTimeout(logLevels, 30000);
   };
 
   logLevels();
