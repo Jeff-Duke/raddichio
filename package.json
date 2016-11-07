@@ -1,17 +1,29 @@
 {
-  "name": "self-directed",
+  "name": "Raddichio",
   "version": "1.0.0",
-  "description": "",
+  "description": "sensor system for watering plants",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Jeff Duke",
   "license": "ISC",
   "dependencies": {
     "express": "^4.14.0",
+    "jquery": "^3.1.1",
     "justgage": "^1.2.2",
+    "phant-client": "0.0.6",
+    "request": "^2.78.0",
     "socket.io": "^1.5.1"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jeff-Duke/raddichio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Jeff-Duke/raddichio/issues"
+  },
+  "homepage": "https://github.com/Jeff-Duke/raddichio#readme"
 }
