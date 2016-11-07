@@ -10,8 +10,10 @@
   "author": "Jeff Duke",
   "license": "ISC",
   "dependencies": {
+    "chart.js": "^1.1.1",
     "express": "^4.14.0",
     "justgage": "^1.2.2",
+    "react-chartjs": "^0.8.0",
     "request": "^2.78.0",
     "socket.io": "^1.5.1"
   },

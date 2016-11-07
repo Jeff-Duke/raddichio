@@ -77,7 +77,7 @@ board.on('ready', () => {
         }
       });
     }
-    setTimeout(logLevels, 30000);
+    setTimeout(logLevels, 300000);
   };
 
   logLevels();
