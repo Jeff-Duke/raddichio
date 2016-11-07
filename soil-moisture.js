@@ -1,4 +1,7 @@
 'use strict';
+
+const request = require('request');
+
 const Tessel = require('tessel-io');
 const five = require('johnny-five');
 const board = new five.Board({
@@ -9,34 +12,55 @@ board.on('ready', () => {
   const dry = new five.Led('b2');
   const wet = new five.Led('b3');
   const moistureSensor = new five.Sensor('a7');
-  const valve = new five.Pin('b7');
+  const monitor = new five.Multi({
+    controller: 'BME280'
+  });
 
-  const checkReservoir = () => {
-   
+  dry.on();
+
+  //** sensor data **
+  let waterLevel;
+  let temperature;
+  let humidity;
+  let barometer;
+
+  //phant info
+  const privateKey = '2mvZePN5kMu7y0lArPRZ';
+  const publicKey = 'ZG4drKRxMocl6a5L7WrY';
+
+  moistureSensor.on('change', () => {
+    waterLevel = moistureSensor.value;
+    
     if (moistureSensor.value < 300) {
-      wet.off();
       dry.on();
-      valve.high();
-
-      console.log('**********************');
-      console.log('Dry', 'Moisture Level ' + moistureSensor.value);
-      console.log('**********************');
-    } 
-    else {
-    
-    if (moistureSensor.value > 300) {
-        dry.off();
-        wet.on();
-        valve.low();
-
-        console.log('**********************');
-        console.log('Wet', 'Moisture Level ' + moistureSensor.value);
-        console.log('**********************');
-      }
-    
+      wet.off();
     }
-    setTimeout(checkReservoir, 1000);
+
+    if (moistureSensor.value > 300) {
+      dry.off();
+      wet.on();
+    }
+  });
+
+  monitor.on('change', () => {
+     temperature = Math.round(monitor.thermometer.fahrenheit);
+     humidity = Math.round(monitor.hygrometer.relativeHumidity);
+     barometer = Math.round(monitor.barometer.pressure);
+  });
+
+  const logLevels = () => {
+    if(waterLevel || temperature || humidity || barometer) {
+      request(`http://data.sparkfun.com/input/${publicKey}?private_key=${privateKey}&humidity=${humidity}&moisturelevel=${waterLevel}&pressure=${barometer}&temp=${temperature}`, (error, response, body) => {
+        if (!error && response.statusCode == 200) {
+          console.log(body);
+        }
+        if(error) {
+          console.error(error);
+        }
+      });
+    }
+    setTimeout(logLevels, 10000);
   };
-  
-  checkReservoir();
+
+  logLevels();
 });
