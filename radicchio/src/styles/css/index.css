@@ -1,19 +1,40 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url("https://fonts.googleapis.com/css?family=Shrikhand");
+@import url("https://fonts.googleapis.com/css?family=Raleway");
 html {
-  min-width: 330px; }
+  min-width: 330px;
+  max-width: 95vw; }
 
 body {
-  background-color: #FFF;
-  font-family: "Roboto", sans-serif;
-  padding: 0 25px 0 25px; }
+  background-color: #2A3C4A;
+  font-family: "Roboto", sans-serif; }
+
+.Logo {
+  font-family: "Raleway", serif;
+  font-size: 3em;
+  color: #ee4c76;
+  margin-left: 25px; }
+
+.LastUpdate {
+  color: #BCC2CE; }
+
+.Fetching, .WaterStatus {
+  color: #3adee8; }
+
+.Fetching {
+  margin-left: 50px; }
 
 #chart-container {
-  max-width: 800px;
-  display: flex;
-  flex-direction: column; }
+  min-width: 330px;
+  max-width: 80vw;
+  margin: auto; }
 
 .LineGraph {
-  width: 600px;
-  height: 650px; }
+  margin: 50px 0 50px 0; }
+
+.ChartLabel {
+  color: #3adee8;
+  font-weight: bold;
+  font-size: 1.1em; }
 
 /*# sourceMappingURL=index.css.map */

@@ -1,6 +1,6 @@
 {
 "version": 3,
-"mappings": "AAAA,UAAW;EACT,KAAK,EAAE,KAAK;EACZ,MAAM,EAAE,KAAK",
+"mappings": "AAAA,gBAAiB;EACf,SAAS,EAAE,KAAK;;AAElB,UAAW;EACT,MAAM,EAAE,IAAI;;AAEd,WAAY;EACV,KAAK,EAAE,uBAAoB",
 "sources": ["../scss/LineGraph.scss"],
 "names": [],
 "file": "LineGraph.css"
