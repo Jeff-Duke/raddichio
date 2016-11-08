@@ -2,16 +2,28 @@
 
 html {
   min-width: 330px;
+  max-width: 95vw;
 }
 
 body {
-  background-color: $mainBackgroundColor;
+  background-color: $color-mainBackground;
   font-family: $mainFont;
-  padding: 0 25px 0 25px;
+}
+.Logo {
+  font-family: $fontLogo;
+  font-size: 3em;
+  color: rgba(238,76,118,1);
+  margin-left: 25px;
 }
 
-#chart-container {
-  max-width: 800px;
-  display: flex;
-  flex-direction: column;
+.LastUpdate {
+  color: #BCC2CE; 
+}
+
+.Fetching, .WaterStatus {
+  color: $color-chartLabel;
+}
+
+.Fetching {
+  margin-left: 50px;
 }

@@ -1,4 +1,15 @@
+#chart-container {
+  min-width: 330px;
+  max-width: 80vw;
+  margin: auto;
+}
+
 .LineGraph {
-  width: 600px;
-  height: 650px;
+  margin: 50px 0 50px 0;
+}
+
+.ChartLabel {
+  color: $color-chartLabel;
+  font-weight: bold;
+  font-size: 1.1em;
 }
