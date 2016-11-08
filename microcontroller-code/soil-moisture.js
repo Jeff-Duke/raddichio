@@ -1,6 +1,7 @@
 'use strict';
 
-const request = require('request');
+const got = require('got');
+const phant = require('phant');
 
 const Tessel = require('tessel-io');
 const five = require('johnny-five');
@@ -31,8 +32,7 @@ board.on('ready', () => {
   let waterStatus;
 
   //phant info
-  const privateKey = '2mvZePN5kMu7y0lArPRZ';
-  const publicKey = 'ZG4drKRxMocl6a5L7WrY';
+  const phantUrl = `http://data.sparkfun.com/input/${phant.publicKey}?private_key=${phant.privateKey}&humidity=${humidity}&moisturelevel=${waterLevel}&pressure=${barometer}&temp=${temperature}&waterstatus=${waterStatus}`;
 
   const waterOff = () => {
     valve.min();
@@ -68,12 +68,13 @@ board.on('ready', () => {
 
   const logLevels = () => {
     if(waterLevel || temperature || humidity || barometer) {
-      request(`http://data.sparkfun.com/input/${publicKey}?private_key=${privateKey}&humidity=${humidity}&moisturelevel=${waterLevel}&pressure=${barometer}&temp=${temperature}&waterstatus=${waterStatus}`, (error, response, body) => {
+      got(phantUrl, (error, response, body) => {
         if (!error && response.statusCode == 200) {
           console.log(body);
         }
         if(error) {
           console.error(error);
+          setTimeout(logLevels, 10000);
         }
       });
     }
