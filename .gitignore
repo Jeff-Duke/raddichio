@@ -38,3 +38,8 @@ jspm_packages
 
 #Phant Configuration Info
 phant.js
+
+# misc
+.DS_Store
+.env
+npm-debug.log
