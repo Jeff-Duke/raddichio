@@ -12,6 +12,7 @@
   "dependencies": {
     "chart.js": "^1.1.1",
     "express": "^4.14.0",
+    "got": "^6.6.3",
     "justgage": "^1.2.2",
     "react-chartjs": "^0.8.0",
     "request": "^2.78.0",
