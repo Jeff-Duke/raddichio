@@ -68,7 +68,7 @@ export default class App extends Component {
             
             <p className='LastUpdate'> Data last updated: { this.state.rawdata ? moment(this.state.rawdata[0].timestamp).format('MM/DD HH:mm A') : null } </p>
             
-            <p className='ErrorOutput'> { this.state.error ? 'There was a problem getting the latest update, hang tight and we\'ll try again...' : null }</p>
+            <p className='ErrorOutput'> { this.state.error ? 'There was a problem getting the latest update, hang tight while we try again' : null }</p>
             
             <LineGraph data={moistureLevel} labels={timeStamps} chartLabel='Moisture Level' legendLabel='Moisture' />
             

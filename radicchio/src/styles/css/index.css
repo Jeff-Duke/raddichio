@@ -24,6 +24,9 @@ body {
 .Fetching {
   margin-left: 50px; }
 
+.ErrorOutput {
+  color: #ee4c76; }
+
 #chart-container {
   min-width: 330px;
   max-width: 80vw;
