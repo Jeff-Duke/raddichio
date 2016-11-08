@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+html {
+  min-width: 330px; }
+
+body {
+  background-color: #FFF;
+  font-family: "Roboto", sans-serif;
+  padding: 0 25px 0 25px; }
+
+#chart-container {
+  max-width: 800px;
+  display: flex;
+  flex-direction: column; }
+
+/*# sourceMappingURL=App.css.map */

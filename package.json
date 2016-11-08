@@ -1,5 +1,5 @@
 {
-  "name": "Raddichio",
+  "name": "Radicchio",
   "version": "1.0.0",
   "description": "sensor system for watering plants",
   "main": "index.js",
@@ -20,10 +20,10 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Jeff-Duke/raddichio.git"
+    "url": "git+https://github.com/Jeff-Duke/Radicchio.git"
   },
   "bugs": {
-    "url": "https://github.com/Jeff-Duke/raddichio/issues"
+    "url": "https://github.com/Jeff-Duke/Radicchio/issues"
   },
-  "homepage": "https://github.com/Jeff-Duke/raddichio#readme"
+  "homepage": "https://github.com/Jeff-Duke/Radicchio#readme"
 }

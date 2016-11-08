@@ -1,0 +1,17 @@
+@import '_fonts-colors.scss';
+
+html {
+  min-width: 330px;
+}
+
+body {
+  background-color: $mainBackgroundColor;
+  font-family: $mainFont;
+  padding: 0 25px 0 25px;
+}
+
+#chart-container {
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+}
