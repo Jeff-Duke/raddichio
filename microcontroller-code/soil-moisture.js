@@ -1,7 +1,7 @@
 'use strict';
 
 const got = require('got');
-const phant = require('phant');
+const config = require('./phant-config');
 
 const Tessel = require('tessel-io');
 const five = require('johnny-five');
@@ -17,7 +17,7 @@ board.on('ready', () => {
     controller: 'BME280'
   });
   const valve = new five.Servo({
-    pin: 'b7',
+    pin: 'b6',
     range: [0, 90],
     startAt: 0
   });
@@ -31,9 +31,6 @@ board.on('ready', () => {
   let barometer;
   let waterStatus;
 
-  //phant info
-  const phantUrl = `http://data.sparkfun.com/input/${phant.publicKey}?private_key=${phant.privateKey}&humidity=${humidity}&moisturelevel=${waterLevel}&pressure=${barometer}&temp=${temperature}&waterstatus=${waterStatus}`;
-
   const waterOff = () => {
     valve.min();
     waterStatus = 'Off';
@@ -46,7 +43,6 @@ board.on('ready', () => {
 
   moistureSensor.on('change', () => {
     waterLevel = moistureSensor.value;
-    
     if (moistureSensor.value < 300) {
       dry.on();
       wet.off();
@@ -67,19 +63,19 @@ board.on('ready', () => {
   });
 
   const logLevels = () => {
-    if(waterLevel || temperature || humidity || barometer) {
-      got(phantUrl, (error, response, body) => {
-        if (!error && response.statusCode == 200) {
-          console.log(body);
-        }
-        if(error) {
-          console.error(error);
+    const phantUrl = `http://data.sparkfun.com/input/${config.publicKey}?private_key=${config.privateKey}&humidity=${humidity}&moisturelevel=${waterLevel}&pressure=${barometer}&temp=${temperature}&waterstatus=${waterStatus}`;
+
+      got(phantUrl)
+        .then(response => {
+          console.log(response.body);
+        })
+        .catch(error => {
+          console.log(error.response.body);
           setTimeout(logLevels, 10000);
-        }
-      });
-    }
+        });
+
     setTimeout(logLevels, 300000);
   };
-
-  logLevels();
+  (waterLevel || temperature || humidity || barometer) ? logLevels() : setTimeout(logLevels, 5000);
 });
+
