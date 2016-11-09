@@ -44,3 +44,5 @@ phant.js
 .env
 npm-debug.log
 .sass-cache
+phant-config.js
+microcontroller-code/phant-config.js
