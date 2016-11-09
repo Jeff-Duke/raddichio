@@ -13,10 +13,12 @@
     "chart.js": "^1.1.1",
     "express": "^4.14.0",
     "got": "^6.6.3",
+    "johnny-five": "^0.10.5",
     "justgage": "^1.2.2",
+    "phant": "^6.8.0",
     "react-chartjs": "^0.8.0",
-    "request": "^2.78.0",
-    "socket.io": "^1.5.1"
+    "socket.io": "^1.5.1",
+    "tessel-io": "^0.10.1"
   },
   "devDependencies": {},
   "repository": {
