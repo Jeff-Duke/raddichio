@@ -1,12 +1,11 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway");
 @import url("https://fonts.googleapis.com/css?family=Roboto");
-
 body {
   background-color: #2A3C4A;
-  min-width: 330px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-width: 330px;
 }
 
 #thermometer,
@@ -17,33 +16,33 @@ body {
 }
 
 #button-container {
-  width: 100vw;
   display: flex;
   justify-content: center;
-  height: 100px;
   margin: 25px 0 50px 0;
+  height: 100px;
+  width: 100vw;
 }
 
 .button {
-  width: 150px;
   border: 0;
   border-radius: 0;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .22);
   color: #FFF;
   font-family: 'Roboto';
   font-size: 1.75em;
   margin: 0 10px 0 10px;
-  box-shadow: 0 14px 28px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.22);
+  width: 150px;
 }
 
 #water-on-button {
-  background-color: #3BFFAB;
+  background-color: #2aa470;
 }
 
 #water-off-button {
   background-color: #ee4c76;
 }
 
-#guage-container {
+#gauge-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -51,15 +50,28 @@ body {
 }
 
 .Logo {
+  color: #ee4c76;
   font-family: "Raleway", serif;
   font-size: 3em;
-  color: #ee4c76;
   margin-left: 15px;
 }
 
 #water-status {
-  font-family: "Roboto", sans-serif;
   color: #3adee8;
+  font-family: "Roboto", sans-serif;
   margin-left: 25px;
 }
-/*media query at 600px, flex row, guage width=300px*/
+
+@media all and (min-width: 500px) {
+  #gauge-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  #thermometer,
+  #barometer,
+  #waterlevel,
+  #hygrometer {
+    width: 300px;
+  }
+}

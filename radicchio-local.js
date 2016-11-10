@@ -19,8 +19,8 @@ const board = new five.Board({
 
 let manualControls = false;
 
-const toggleManualControls = () => {
-  manualControls === false ? manualControls = true : manualControls = false;
+const disableManualControls = () => {
+  manualControls = false;
 };
 
 application.use(Express.static(path.join(__dirname, "/app")));
@@ -87,7 +87,7 @@ board.on('ready', () => {
 
     clients.forEach(recipient => {
       recipient.emit('waterStatusUpdate', {
-        waterstatus: waterStatus
+        waterStatus: waterStatus
       });
     });
 
@@ -110,7 +110,7 @@ board.on('ready', () => {
           thermometer: temperature,
           barometer: barometer,
           hygrometer: humidity,
-          waterlevel: waterLevel,
+          waterLevel: waterLevel,
         });
       });
     }
@@ -139,13 +139,13 @@ board.on('ready', () => {
     socket.on('waterOnClick', function () {
       manualControls = true;
       waterOn();
-      setTimeout(toggleManualControls, 300000);
+      setTimeout(disableManualControls, 300000);
     });
 
     socket.on('waterOffClick', function () {
       manualControls = true;
       waterOff();
-      setTimeout(toggleManualControls, 60000);
+      setTimeout(disableManualControls, 60000);
     });
 
     // Allow up to 5 monitor sockets to

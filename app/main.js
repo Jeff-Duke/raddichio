@@ -3,7 +3,7 @@ window.onload = () => {
   const socket = io();
   let monitor = {};
 
-  monitor.waterlevel = new JustGage({
+  monitor.waterLevel = new JustGage({
     id: "waterlevel",
     value: 500,
     min: 0,
@@ -66,7 +66,7 @@ window.onload = () => {
   });
 
   socket.on('waterStatusUpdate', (data) => {
-    waterStatus.innerText = `Watering Status: ${data.waterstatus}`;
+    waterStatus.innerText = `Watering Status: ${data.waterStatus}`;
   });
 
 
