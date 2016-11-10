@@ -4,7 +4,7 @@ const http = require("http");
 const os = require("os");
 const path = require("path");
 const got = require('got');
-const config = require('./microcontroller-code/phant-config');
+const config = require('./phant-config');
 const Express = require("express");
 const SocketIO = require("socket.io");
 const application = new Express();
@@ -32,7 +32,8 @@ board.on('ready', () => {
   const moistureSensor = new five.Sensor('a7');
 
   const monitor = new five.Multi({
-    controller: 'BME280'
+    controller: 'BME280',
+    elevation: 1610,
   });
 
   const valve = new five.Servo({
@@ -67,20 +68,14 @@ board.on('ready', () => {
     waterStatus = 'Running';
   };
 
-  // const toggleManualControls = () => {
-  //   manualControls === false ? manualControls = true : manualControls = false;
-  // };
-
   const checkMoistureSensor = () => {
     waterLevel = moistureSensor.value;
     if (manualControls === false) {
       if (moistureSensor.value < 300) {
-
         waterOn();
       }
 
       if (moistureSensor.value > 300) {
-
         waterOff();
       }
     }
@@ -90,7 +85,6 @@ board.on('ready', () => {
         waterStatus: waterStatus
       });
     });
-
     setTimeout(checkMoistureSensor, 1000);
   };
 
@@ -98,7 +92,6 @@ board.on('ready', () => {
     temperature = Math.round(monitor.thermometer.fahrenheit);
     humidity = Math.round(monitor.hygrometer.relativeHumidity);
     barometer = Math.round(monitor.barometer.pressure);
-
 
     let now = Date.now();
     if (now - updated >= 5000) {
