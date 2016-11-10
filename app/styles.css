@@ -1,0 +1,30 @@
+body {
+  background-color: #2A3C4A;
+  min-width: 330px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#thermometer,
+#barometer,
+#waterlevel,
+#hygrometer {
+  width: 75%;
+}
+
+#button-container {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+#guage-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+
+/*media query at 600px, flex row, guage width=300px*/

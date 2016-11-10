@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <title>Radicchio-Local</title>
+</head>
+
+<body>
+  <div id="button-container">
+    <button id="water-on-button">Water On</button>
+    <button id="water-off-button">Water Off</button>
+  </div>
+
+  <section id="guage-container">
+    <div id="waterlevel" class="gauge"></div>
+    <div id="thermometer" class="gauge"></div>
+    <div id="barometer" class="gauge"></div>
+    <div id="hygrometer" class="gauge"></div>
+  </section>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/vendor/justgage/justgage.js"></script>
+  <script src="/vendor/justgage/raphael-2.1.4.min.js"></script>
+  <script src="main.js"></script>
+</body>
+
+</html>

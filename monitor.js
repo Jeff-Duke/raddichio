@@ -4,20 +4,20 @@ const http = require("http");
 const os = require("os");
 const path = require("path");
 const got = require('got');
-const config = require('./phant-config');
-const five = require('johnny-five');
-
+const config = require('./microcontroller-code/phant-config');
 const Express = require("express");
 const SocketIO = require("socket.io");
-
 const application = new Express();
 const server = new http.Server(application);
 const io = new SocketIO(server);
 
+const five = require('johnny-five');
 const Tessel = require("tessel-io");
 const board = new five.Board({
   io: new Tessel()
 });
+
+let manualControls = false;
 
 application.use(Express.static(path.join(__dirname, "/app")));
 application.use("/vendor", Express.static(__dirname + "/node_modules/"));
@@ -47,50 +47,58 @@ board.on('ready', () => {
   let barometer;
   let waterStatus;
 
-  dry.on();
-
   //** valve controls **
 
   const waterOff = () => {
     valve.min();
+    dry.off();
+    wet.on();
     waterStatus = 'Off';
   };
 
   const waterOn = () => {
     valve.max();
+    dry.on();
+    wet.off();
     waterStatus = 'Running';
   };
 
-  moistureSensor.on('change', () => {
-    waterLevel = moistureSensor.value;
-    if (moistureSensor.value < 300) {
-      dry.on();
-      wet.off();
-      waterOn();
-    }
+  // const toggleManualControls = () => {
+  //   manualControls === false ? manualControls = true : manualControls = false;
+  // };
 
-    if (moistureSensor.value > 300) {
-      dry.off();
-      wet.on();
-      waterOff();
+  const checkMoistureSensor = () => {
+    waterLevel = moistureSensor.value;
+    if (manualControls === false) {
+      if (moistureSensor.value < 300) {
+        waterOn();
+      }
+
+      if (moistureSensor.value > 300) {
+        waterOff();
+      }
     }
-  });
+    setTimeout(checkMoistureSensor, 1000);
+  };
 
   monitor.on('change', () => {
     temperature = Math.round(monitor.thermometer.fahrenheit);
     humidity = Math.round(monitor.hygrometer.relativeHumidity);
     barometer = Math.round(monitor.barometer.pressure);
 
+
     let now = Date.now();
     if (now - updated >= 5000) {
       updated = now;
 
       clients.forEach(recipient => {
+
         recipient.emit("report", {
-          thermometer: monitor.thermometer.fahrenheit,
-          barometer: monitor.barometer.pressure,
-          hygrometer: monitor.hygrometer.relativeHumidity,
+          thermometer: temperature,
+          barometer: barometer,
+          hygrometer: humidity,
           waterlevel: waterLevel,
+          waterstatus: waterStatus,
         });
       });
     }
@@ -111,10 +119,21 @@ board.on('ready', () => {
     setTimeout(logLevels, 300000);
   };
 
+  checkMoistureSensor();
   (waterLevel || temperature || humidity || barometer) ? logLevels(): setTimeout(logLevels, 5000);
 
   //initialize express server connections
   io.on("connection", socket => {
+    socket.on('waterOnClick', function () {
+      manualControls = true;
+      waterOn();
+    });
+
+    socket.on('waterOffClick', function () {
+      waterOff();
+      manualControls = false;
+    });
+
     // Allow up to 5 monitor sockets to
     // connect to this enviro-monitor server
     if (clients.size < 5) {
