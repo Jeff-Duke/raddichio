@@ -2,7 +2,7 @@
 window.onload = () => {
   const socket = io();
   let monitor = {};
-
+//create gauges
   monitor.waterLevel = new JustGage({
     id: "waterlevel",
     value: 500,
@@ -68,8 +68,6 @@ window.onload = () => {
   socket.on('waterStatusUpdate', (data) => {
     waterStatus.innerText = `Watering Status: ${data.waterStatus}`;
   });
-
-
 
   waterOnButton.addEventListener('click', (e) => {
     socket.emit('waterOnClick');
