@@ -19,6 +19,10 @@ const board = new five.Board({
 
 let manualControls = false;
 
+const toggleManualControls = () => {
+  manualControls === false ? manualControls = true : manualControls = false;
+};
+
 application.use(Express.static(path.join(__dirname, "/app")));
 application.use("/vendor", Express.static(__dirname + "/node_modules/"));
 
@@ -71,13 +75,22 @@ board.on('ready', () => {
     waterLevel = moistureSensor.value;
     if (manualControls === false) {
       if (moistureSensor.value < 300) {
+
         waterOn();
       }
 
       if (moistureSensor.value > 300) {
+
         waterOff();
       }
     }
+
+    clients.forEach(recipient => {
+      recipient.emit('waterStatusUpdate', {
+        waterstatus: waterStatus
+      });
+    });
+
     setTimeout(checkMoistureSensor, 1000);
   };
 
@@ -98,7 +111,6 @@ board.on('ready', () => {
           barometer: barometer,
           hygrometer: humidity,
           waterlevel: waterLevel,
-          waterstatus: waterStatus,
         });
       });
     }
@@ -127,11 +139,13 @@ board.on('ready', () => {
     socket.on('waterOnClick', function () {
       manualControls = true;
       waterOn();
+      setTimeout(toggleManualControls, 300000);
     });
 
     socket.on('waterOffClick', function () {
+      manualControls = true;
       waterOff();
-      manualControls = false;
+      setTimeout(toggleManualControls, 60000);
     });
 
     // Allow up to 5 monitor sockets to

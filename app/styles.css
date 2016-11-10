@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway");
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+
 body {
   background-color: #2A3C4A;
   min-width: 330px;
@@ -17,6 +20,27 @@ body {
   width: 100vw;
   display: flex;
   justify-content: center;
+  height: 100px;
+  margin: 25px 0 50px 0;
+}
+
+.button {
+  width: 150px;
+  border: 0;
+  border-radius: 0;
+  color: #FFF;
+  font-family: 'Roboto';
+  font-size: 1.75em;
+  margin: 0 10px 0 10px;
+  box-shadow: 0 14px 28px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.22);
+}
+
+#water-on-button {
+  background-color: #3BFFAB;
+}
+
+#water-off-button {
+  background-color: #ee4c76;
 }
 
 #guage-container {
@@ -26,5 +50,16 @@ body {
   justify-content: center;
 }
 
+.Logo {
+  font-family: "Raleway", serif;
+  font-size: 3em;
+  color: #ee4c76;
+  margin-left: 15px;
+}
 
+#water-status {
+  font-family: "Roboto", sans-serif;
+  color: #3adee8;
+  margin-left: 25px;
+}
 /*media query at 600px, flex row, guage width=300px*/
