@@ -92,7 +92,7 @@ board.on('ready', () => {
     temperature = Math.round(monitor.thermometer.fahrenheit);
     humidity = Math.round(monitor.hygrometer.relativeHumidity);
     barometer = Math.round(monitor.barometer.pressure);
-
+    
     let now = Date.now();
     if (now - updated >= 5000) {
       updated = now;
@@ -125,7 +125,7 @@ board.on('ready', () => {
   };
 
   checkMoistureSensor();
-  (waterLevel || temperature || humidity || barometer) ? logLevels(): setTimeout(logLevels, 5000);
+  (waterLevel || temperature || humidity || barometer) ? logLevels(): setTimeout(logLevels, 12000);
 
   //initialize express server connections
   io.on("connection", socket => {
