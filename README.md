@@ -6,6 +6,7 @@ The project is built using the [Tessel-2](https://tessel.io/) microcontroller wh
 ![fritzing diagram](https://github.com/Jeff-Duke/radicchio/blob/master/radicchio/public/Screen%20Shot%202016-11-05%20at%2013.11.25.png "Fritzing Diagram of the hardware")
 
 ![demo of system using a servo to mock the valve](http://g.recordit.co/kspOwKPLDd.gif)
+
 *Demo of the system using a servo to mock the valve.*
 
 ## Web-based Interface
