@@ -5,6 +5,8 @@ Radicchio is an automated garden watering system.  It is a collection of compone
 The project is built using the [Tessel-2](https://tessel.io/) microcontroller which is running [Johnny-Five js](http://johnny-five.io/).  The microcontroller is also running a NodeJS server using Express.  This server is pushing sensor data to the cloud via the Sparkfun Phant.io service.  This gives us a web-based dashboard for viewing trends with our system such as temperatures, humidity levels and watering intervals.  The Node server is also serving a local control interface that is accessible when the client is on the same network as the microcontroller.  This is providing real-time sensor information as well as manual controls via Socket.io.
 ![fritzing diagram](https://github.com/Jeff-Duke/radicchio/blob/master/radicchio/public/Screen%20Shot%202016-11-05%20at%2013.11.25.png "Fritzing Diagram of the hardware")
 
+![demo of system using a servo to mock the valve](http://g.recordit.co/kspOwKPLDd.gif)
+
 ## Web-based Interface
 The web dashboard is built in React and uses the Chart.js library for charting data gathered from the sensors on the hardware. ![Web Dashboard](https://github.com/Jeff-Duke/radicchio/blob/master/radicchio/public/Screen%20Shot%202016-11-08%20at%2013.37.31.png "Web Dashboard")
 
